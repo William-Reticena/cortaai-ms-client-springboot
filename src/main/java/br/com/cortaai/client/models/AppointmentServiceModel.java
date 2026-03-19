@@ -1,4 +1,4 @@
-package br.com.cortaai.client.model;
+package br.com.cortaai.client.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

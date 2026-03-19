@@ -1,4 +1,4 @@
-package br.com.cortaai.client.model;
+package br.com.cortaai.client.models;
 
 import br.com.cortaai.client.enums.AppointmentStatusEnum;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package br.com.cortaai.client.model.embed;
+package br.com.cortaai.client.models.embed;
 
 import jakarta.persistence.Embeddable;
 import lombok.*;
