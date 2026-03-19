@@ -21,11 +21,11 @@ public class EmployeeModel {
     @Column(name = "ID")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER", referencedColumnName = "ID", nullable = false)
     private UserModel user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_BARBERSHOP", referencedColumnName = "ID", nullable = false)
     private BarbershopModel barbershop;
 
