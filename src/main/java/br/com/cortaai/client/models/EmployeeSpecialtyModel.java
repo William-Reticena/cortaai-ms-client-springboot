@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "EMPLOYEE_SPECIALTY")
+@Table(name = "employee_specialty")
 public class EmployeeSpecialtyModel {
 
     @EmbeddedId
@@ -20,11 +20,11 @@ public class EmployeeSpecialtyModel {
 
     @MapsId("idEmployee")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_EMPLOYEE", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "id_employee", referencedColumnName = "id", nullable = false)
     private EmployeeModel employee;
 
     @MapsId("idSpecialty")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_SPECIALTY", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "id_specialty", referencedColumnName = "id", nullable = false)
     private SpecialtyModel specialty;
 }

@@ -14,39 +14,39 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "SERVICE")
+@Table(name = "service")
 public class ServiceModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_BARBERSHOP", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "id_barbershop", referencedColumnName = "id", nullable = false)
     private BarbershopModel barbershop;
 
-    @Column(name = "NM_SERVICE", length = 80, nullable = false)
+    @Column(name = "nm_service", length = 80, nullable = false)
     private String nmService;
 
-    @Column(name = "DS_SERVICE", length = 255)
+    @Column(name = "ds_service", length = 255)
     private String dsService;
 
-    @Column(name = "VL_PRICE", precision = 10, scale = 2, nullable = false)
+    @Column(name = "vl_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal vlPrice;
 
-    @Column(name = "NR_DURATION_MINUTES", nullable = false)
+    @Column(name = "nr_duration_minutes", nullable = false)
     private Integer nrDurationMinutes;
 
-    @Column(name = "IN_ACTIVE", nullable = false)
+    @Column(name = "in_active", nullable = false)
     private Boolean inActive;
 
-    @Column(name = "DT_CREATED")
+    @Column(name = "dt_created")
     private LocalDateTime dtCreated;
 
-    @Column(name = "DT_UPDATED")
+    @Column(name = "dt_updated")
     private LocalDateTime dtUpdated;
 
-    @Column(name = "DT_DELETED")
+    @Column(name = "dt_deleted")
     private LocalDateTime dtDeleted;
 }

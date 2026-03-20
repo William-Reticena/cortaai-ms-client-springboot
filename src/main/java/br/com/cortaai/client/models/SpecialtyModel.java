@@ -13,20 +13,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "SPECIALTY")
+@Table(name = "specialty")
 public class SpecialtyModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "NM_SPECIALTY", length = 30, nullable = false)
+    @Column(name = "nm_specialty", length = 30, nullable = false)
     private String nmSpecialty;
 
-    @Column(name = "DT_CREATED")
+    @Column(name = "dt_created")
     private LocalDateTime dtCreated;
 
-    @Column(name = "DT_DELETED")
+    @Column(name = "dt_deleted")
     private LocalDateTime dtDeleted;
 }

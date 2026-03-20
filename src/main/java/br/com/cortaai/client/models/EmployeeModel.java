@@ -13,28 +13,28 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "EMPLOYEE")
+@Table(name = "employee")
 public class EmployeeModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USER", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
     private UserModel user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_BARBERSHOP", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "id_barbershop", referencedColumnName = "id", nullable = false)
     private BarbershopModel barbershop;
 
-    @Column(name = "IN_AVAILABLE", nullable = false)
-    private Boolean available;
+    @Column(name = "in_available", nullable = false)
+    private Boolean inAvailable;
 
-    @Column(name = "DT_CREATED")
-    private LocalDateTime createdAt;
+    @Column(name = "dt_created")
+    private LocalDateTime dtCreated;
 
-    @Column(name = "DT_DELETED")
-    private LocalDateTime deletedAt;
+    @Column(name = "dt_deleted")
+    private LocalDateTime dtDeleted;
 }

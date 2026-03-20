@@ -13,24 +13,24 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "BARBERSHOP")
+@Table(name = "barbershop")
 public class BarbershopModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_OWNER", nullable = false)
+    @JoinColumn(name = "id_owner", referencedColumnName = "id", nullable = false)
     private UserModel owner;
 
-    @Column(name = "NM_BARBERSHOP", length = 100)
+    @Column(name = "nm_barbershop", length = 100)
     private String nmBarbershop;
 
-    @Column(name = "DT_CREATED")
+    @Column(name = "dt_created")
     private LocalDateTime dtCreated;
 
-    @Column(name = "DT_DELETED")
+    @Column(name = "dt_deleted")
     private LocalDateTime dtDeleted;
 }

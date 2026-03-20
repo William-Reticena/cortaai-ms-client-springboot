@@ -14,30 +14,30 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "\"USER\"")
+@Table(name = "\"user\"")
 public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "NM_USER", nullable = false, length = 80)
+    @Column(name = "nm_user", nullable = false, length = 80)
     private String nmUser;
 
-    @Column(name = "DS_PHONE", length = 20)
+    @Column(name = "ds_phone", length = 20)
     private String dsPhone;
 
-    @Column(name = "DS_PASSWORD", nullable = false)
+    @Column(name = "ds_password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "TP_ROLE", nullable = false, length = 10)
+    @Column(name = "tp_role", nullable = false, length = 10)
     private UserRoleEnum role;
 
-    @Column(name = "DT_CREATED")
+    @Column(name = "dt_created")
     private LocalDateTime createdAt;
 
-    @Column(name = "DT_DELETED")
+    @Column(name = "dt_deleted")
     private LocalDateTime deletedAt;
 }

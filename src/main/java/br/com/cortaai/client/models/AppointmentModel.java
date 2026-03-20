@@ -16,49 +16,49 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "APPOINTMENT")
+@Table(name = "appointment")
 public class AppointmentModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_CLIENT", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "id_client", referencedColumnName = "id", nullable = false)
     private UserModel client;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_BARBERSHOP", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "id_barbershop", referencedColumnName = "id", nullable = false)
     private BarbershopModel barbershop;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_EMPLOYEE", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "id_employee", referencedColumnName = "id", nullable = false)
     private EmployeeModel idEmployee;
 
-    @Column(name = "DT_APPOINTMENT", nullable = false)
+    @Column(name = "dt_appointment", nullable = false)
     private LocalDate dtAppointment;
 
-    @Column(name = "HR_START", nullable = false)
+    @Column(name = "hr_start", nullable = false)
     private LocalTime hrStart;
 
-    @Column(name = "HR_END", nullable = false)
+    @Column(name = "hr_end", nullable = false)
     private LocalTime hrEnd;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "TP_STATUS", nullable = false)
+    @Column(name = "tp_status", nullable = false)
     private AppointmentStatusEnum tpStatus;
 
-    @Column(name = "DS_NOTES", length = 255)
+    @Column(name = "ds_notes", length = 255)
     private String dsNotes;
 
-    @Column(name = "DT_CREATED")
+    @Column(name = "dt_created")
     private LocalDateTime dtCreated;
 
-    @Column(name = "DT_UPDATED")
+    @Column(name = "dt_updated")
     private LocalDateTime dtUpdated;
 
-    @Column(name = "DT_DELETED")
+    @Column(name = "dt_deleted")
     private LocalDateTime dtDeleted;
 
 }
