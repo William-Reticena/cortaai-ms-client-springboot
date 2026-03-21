@@ -28,6 +28,15 @@ public class BarbershopService {
                 ));
     }
 
+    public BarbershopModel getBarbershopByOwnerId(Long id) {
+        return barbershopRepository.findByOwnerId(id)
+                .orElseThrow(() -> new DomainException(
+                        "Barbearia não encontrada",
+                        "Barbershop not found for id: " + id,
+                        HttpStatus.NOT_FOUND
+                ));
+    }
+
     public List<CreateBarbershopResponse> listBarbershops() {
         return barbershopRepository.findAll().stream()
                 .map(BarbershopMapper::toResponse)
@@ -35,12 +44,7 @@ public class BarbershopService {
     }
 
     public CreateBarbershopResponse getBarbershopDetails(Long id) {
-        BarbershopModel barbershop = barbershopRepository.findById(id)
-                .orElseThrow(() -> new DomainException(
-                        "Barbearia não encontrada",
-                        "Barbershop not found for id: " + id,
-                        HttpStatus.NOT_FOUND
-                ));
+        BarbershopModel barbershop = getBarbershopById(id);
 
         return BarbershopMapper.toResponse(barbershop);
     }

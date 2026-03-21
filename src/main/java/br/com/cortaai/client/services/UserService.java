@@ -12,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -34,18 +32,18 @@ public class UserService {
         return UserMapper.toResponse(model);
     }
 
-    public UserModel getOwner(String token) {
-        UserModel user = userRepository.findById(Long.valueOf(token))
+    public UserModel getOwner(Long id) {
+        UserModel user = userRepository.findById(id)
                 .orElseThrow(() -> new DomainException(
                         "Usuário não encontrado",
-                        "User not found for token: " + token,
+                        "User not found for id: " + id,
                         HttpStatus.NOT_FOUND
                 ));
 
         if (user.getTpRole() != UserRoleEnum.OWNER) {
             throw new DomainException(
                     "Acesso negado",
-                    "User with token " + token + " does not have OWNER role",
+                    "User with id " + id + " does not have OWNER role",
                     HttpStatus.FORBIDDEN
             );
         }

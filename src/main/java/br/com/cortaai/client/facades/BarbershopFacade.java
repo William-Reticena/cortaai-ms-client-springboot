@@ -19,7 +19,7 @@ public class BarbershopFacade {
     private final UserService userService;
 
     public CreateBarbershopResponse createBarbershop(String token, CreateBarbershopRequest request) {
-        UserModel user = userService.getOwner(token);
+        UserModel user = userService.getOwner(Long.valueOf(token));
 
         return barbershopService.createBarbershop(user, request);
     }
