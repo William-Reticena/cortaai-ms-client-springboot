@@ -19,6 +19,15 @@ public class BarbershopService {
 
     private final BarbershopRepository barbershopRepository;
 
+    public BarbershopModel getBarbershopById(Long id) {
+        return barbershopRepository.findById(id)
+                .orElseThrow(() -> new DomainException(
+                        "Barbearia não encontrada",
+                        "Barbershop not found for id: " + id,
+                        HttpStatus.NOT_FOUND
+                ));
+    }
+
     public List<CreateBarbershopResponse> listBarbershops() {
         return barbershopRepository.findAll().stream()
                 .map(BarbershopMapper::toResponse)

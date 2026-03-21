@@ -3,14 +3,16 @@ package br.com.cortaai.client.models.embed;
 import jakarta.persistence.Embeddable;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Embeddable
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class EmployeeSpecialtyId {
+public class EmployeeSpecialtyId implements Serializable {
 
-    private Integer idEmployee;
-    private Integer idSpecialty;
+    private Long idEmployee;
+    private Long idSpecialty;
 }

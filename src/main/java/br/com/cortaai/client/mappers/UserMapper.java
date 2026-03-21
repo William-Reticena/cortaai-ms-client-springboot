@@ -1,5 +1,6 @@
 package br.com.cortaai.client.mappers;
 
+import br.com.cortaai.client.dtos.request.CreateBarberRequest;
 import br.com.cortaai.client.dtos.request.CreateUserRequest;
 import br.com.cortaai.client.dtos.response.CreateUserResponse;
 import br.com.cortaai.client.enums.UserRoleEnum;
@@ -13,6 +14,14 @@ public class UserMapper {
                 .dsPhone(request.dsPhone())
                 .dsPassword(request.dsPassword())
                 .tpRole(UserRoleEnum.valueOf(request.tpRole()))
+                .build();
+    }
+
+    public static UserModel toModel(CreateBarberRequest request) {
+        return UserModel.builder()
+                .nmUser(request.nmUser())
+                .dsPhone(request.dsPhone())
+                .tpRole(UserRoleEnum.BARBER)
                 .build();
     }
 

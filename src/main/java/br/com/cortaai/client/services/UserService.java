@@ -1,5 +1,6 @@
 package br.com.cortaai.client.services;
 
+import br.com.cortaai.client.dtos.request.CreateBarberRequest;
 import br.com.cortaai.client.dtos.request.CreateUserRequest;
 import br.com.cortaai.client.dtos.response.CreateUserResponse;
 import br.com.cortaai.client.enums.UserRoleEnum;
@@ -50,5 +51,9 @@ public class UserService {
         }
 
         return user;
+    }
+
+    public UserModel createUserBarber(CreateBarberRequest request) {
+        return userRepository.save(UserMapper.toModel(request));
     }
 }

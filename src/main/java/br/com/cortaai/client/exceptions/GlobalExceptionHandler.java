@@ -45,11 +45,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGeneric(Exception ex) {
+        log.error("An unexpected error occurred", ex);
+
         Map<String, Object> response = new HashMap<>();
 
         response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.put("info", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
-        response.put("message", ex.getMessage());
+        response.put("message", "Erro interno");
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
