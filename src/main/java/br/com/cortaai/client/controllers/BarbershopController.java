@@ -5,6 +5,7 @@ import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
 import br.com.cortaai.client.facades.BarbershopFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class BarbershopController {
             @RequestHeader("Authorization") String token,
             @RequestBody @Valid CreateBarbershopRequest request
     ) {
-        return ResponseEntity.ok(barbershopFacade.createBarbershop(token, request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(barbershopFacade.createBarbershop(token, request));
     }
 
     @GetMapping
