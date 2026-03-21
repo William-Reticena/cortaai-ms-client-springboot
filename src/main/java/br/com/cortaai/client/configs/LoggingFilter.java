@@ -42,12 +42,13 @@ public class LoggingFilter implements Filter {
         String requestBody = getBody(req.getContentAsByteArray());
         String responseBody = getBody(res.getContentAsByteArray());
 
-        log.info(
-                GREEN + "➡️ method={} uri={} body={}" + RESET,
-                req.getMethod(),
-                req.getRequestURI(),
-                requestBody
-        );
+        String message = GREEN + "➡️ method={} uri={}";
+        if (requestBody != null && !requestBody.isBlank()) {
+            message += " body={}";
+            log.info(message, req.getMethod(), req.getRequestURI(), requestBody);
+        } else {
+            log.info(message, req.getMethod(), req.getRequestURI());
+        }
 
         if (res.getStatus() >= 400) {
             log.error(

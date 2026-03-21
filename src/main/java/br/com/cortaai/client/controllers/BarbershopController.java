@@ -27,13 +27,12 @@ public class BarbershopController {
     }
 
     @GetMapping
-    public ResponseEntity<List<String>> listBarbershops() {
-        return ResponseEntity.ok(barbershopFacade.listBarbershops());
+    public ResponseEntity<List<CreateBarbershopResponse>> listBarbershops() {
+        return ResponseEntity.status(HttpStatus.OK).body(barbershopFacade.listBarbershops());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<String> getBarbershopDetails(@PathVariable String id) {
-
-        return ResponseEntity.ok("Details for Barbershop with ID: " + id);
+    public ResponseEntity<CreateBarbershopResponse> getBarbershopDetails(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(barbershopFacade.getBarbershopDetails(id));
     }
 }

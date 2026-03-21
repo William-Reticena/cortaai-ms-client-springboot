@@ -24,8 +24,11 @@ public class BarbershopFacade {
         return barbershopService.createBarbershop(user, request);
     }
 
-    public List<String> listBarbershops() {
+    public List<CreateBarbershopResponse> listBarbershops() {
         return barbershopService.listBarbershops();
     }
 
+    public CreateBarbershopResponse getBarbershopDetails(Long id) {
+        return barbershopService.getBarbershopDetails(id);
+    }
 }
