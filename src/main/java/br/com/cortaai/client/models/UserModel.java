@@ -20,7 +20,7 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "nm_user", nullable = false, length = 80)
     private String nmUser;
@@ -29,11 +29,11 @@ public class UserModel {
     private String dsPhone;
 
     @Column(name = "ds_password", nullable = false)
-    private String password;
+    private String dsPassword;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tp_role", nullable = false, length = 10)
-    private UserRoleEnum role;
+    private UserRoleEnum tpRole;
 
     @Column(name = "dt_created")
     private LocalDateTime createdAt;

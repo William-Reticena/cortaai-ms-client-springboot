@@ -19,7 +19,7 @@ public class SpecialtyModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "nm_specialty", length = 30, nullable = false)
     private String nmSpecialty;
