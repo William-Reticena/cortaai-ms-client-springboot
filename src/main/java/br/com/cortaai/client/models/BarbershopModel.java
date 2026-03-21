@@ -33,4 +33,9 @@ public class BarbershopModel {
 
     @Column(name = "dt_deleted")
     private LocalDateTime dtDeleted;
+
+    @PrePersist
+    public void prePersist() {
+        if (dtCreated == null) dtCreated = LocalDateTime.now();
+    }
 }

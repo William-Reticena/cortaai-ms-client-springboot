@@ -36,8 +36,13 @@ public class UserModel {
     private UserRoleEnum tpRole;
 
     @Column(name = "dt_created")
-    private LocalDateTime createdAt;
+    private LocalDateTime dtCreated;
 
     @Column(name = "dt_deleted")
-    private LocalDateTime deletedAt;
+    private LocalDateTime dtDeleted;
+
+    @PrePersist
+    public void prePersist() {
+        if (dtCreated == null) dtCreated = LocalDateTime.now();
+    }
 }
