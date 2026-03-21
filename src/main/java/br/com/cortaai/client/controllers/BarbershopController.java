@@ -1,12 +1,12 @@
 package br.com.cortaai.client.controllers;
 
+import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
+import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
 import br.com.cortaai.client.facades.BarbershopFacade;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +16,14 @@ import java.util.List;
 public class BarbershopController {
 
     private final BarbershopFacade barbershopFacade;
+
+    @PostMapping
+    public ResponseEntity<CreateBarbershopResponse> createBarbershop(
+            @RequestHeader("Authorization") String token,
+            @RequestBody @Valid CreateBarbershopRequest request
+    ) {
+        return ResponseEntity.ok(barbershopFacade.createBarbershop(token, request));
+    }
 
     @GetMapping
     public ResponseEntity<List<String>> listBarbershops() {
