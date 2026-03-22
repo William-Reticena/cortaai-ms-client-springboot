@@ -2,6 +2,7 @@ package br.com.cortaai.client.controllers;
 
 import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
 import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
+import br.com.cortaai.client.dtos.response.GetBarbershopDetailsResponse;
 import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
 import br.com.cortaai.client.facades.BarbershopFacade;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class BarbershopController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<CreateBarbershopResponse> getBarbershopDetails(@PathVariable Long id) {
+    public ResponseEntity<GetBarbershopDetailsResponse> getBarbershopDetails(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(barbershopFacade.getBarbershopDetails(id));
     }
 }

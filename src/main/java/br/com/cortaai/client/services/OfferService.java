@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class OfferService {
@@ -27,5 +29,9 @@ public class OfferService {
                         "Service not found for id: " + id,
                         HttpStatus.NOT_FOUND
                 ));
+    }
+
+    public List<ServiceModel> listOfferServicesByBarbershopId(Long barbershopId) {
+        return offerRepository.findByBarbershopId(barbershopId);
     }
 }
