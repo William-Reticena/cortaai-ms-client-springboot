@@ -32,13 +32,17 @@ public class UserService {
         return UserMapper.toResponse(model);
     }
 
-    public UserModel getOwner(Long id) {
-        UserModel user = userRepository.findById(id)
+    public UserModel getUserById(Long id) {
+        return userRepository.findById(id)
                 .orElseThrow(() -> new DomainException(
                         "Usuário não encontrado",
                         "User not found for id: " + id,
                         HttpStatus.NOT_FOUND
                 ));
+    }
+
+    public UserModel getOwner(Long id) {
+        UserModel user = getUserById(id);
 
         if (user.getTpRole() != UserRoleEnum.OWNER) {
             throw new DomainException(

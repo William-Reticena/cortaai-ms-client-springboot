@@ -34,7 +34,7 @@ public class AppointmentModel {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_employee", referencedColumnName = "id", nullable = false)
-    private EmployeeModel idEmployee;
+    private EmployeeModel employee;
 
     @Column(name = "dt_appointment", nullable = false)
     private LocalDate dtAppointment;

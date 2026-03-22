@@ -2,7 +2,6 @@ package br.com.cortaai.client.controllers;
 
 import br.com.cortaai.client.dtos.request.CreateOfferRequest;
 import br.com.cortaai.client.facades.OfferFacade;
-import br.com.cortaai.client.facades.UserFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
