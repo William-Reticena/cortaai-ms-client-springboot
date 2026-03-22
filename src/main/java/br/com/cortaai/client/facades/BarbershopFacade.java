@@ -2,6 +2,9 @@ package br.com.cortaai.client.facades;
 
 import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
 import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
+import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
+import br.com.cortaai.client.mappers.BarbershopMapper;
+import br.com.cortaai.client.models.BarbershopModel;
 import br.com.cortaai.client.models.UserModel;
 import br.com.cortaai.client.services.BarbershopService;
 import br.com.cortaai.client.services.UserService;
@@ -24,8 +27,10 @@ public class BarbershopFacade {
         return barbershopService.createBarbershop(user, request);
     }
 
-    public List<CreateBarbershopResponse> listBarbershops() {
-        return barbershopService.listBarbershops();
+    public List<ListBarbershopResponse> listBarbershops() {
+        List<BarbershopModel> barbershops = barbershopService.listBarbershops();
+
+        return BarbershopMapper.toListBarbershopResponse(barbershops);
     }
 
     public CreateBarbershopResponse getBarbershopDetails(Long id) {

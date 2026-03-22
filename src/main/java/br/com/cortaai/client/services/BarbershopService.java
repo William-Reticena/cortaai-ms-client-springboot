@@ -2,6 +2,7 @@ package br.com.cortaai.client.services;
 
 import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
 import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
+import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
 import br.com.cortaai.client.exceptions.DomainException;
 import br.com.cortaai.client.mappers.BarbershopMapper;
 import br.com.cortaai.client.models.BarbershopModel;
@@ -37,21 +38,19 @@ public class BarbershopService {
                 ));
     }
 
-    public List<CreateBarbershopResponse> listBarbershops() {
-        return barbershopRepository.findAll().stream()
-                .map(BarbershopMapper::toResponse)
-                .toList();
+    public List<BarbershopModel> listBarbershops() {
+        return barbershopRepository.findAll();
     }
 
     public CreateBarbershopResponse getBarbershopDetails(Long id) {
         BarbershopModel barbershop = getBarbershopById(id);
 
-        return BarbershopMapper.toResponse(barbershop);
+        return BarbershopMapper.toCreateBarbershopResponse(barbershop);
     }
 
     public CreateBarbershopResponse createBarbershop(UserModel user, CreateBarbershopRequest request) {
-        BarbershopModel barbershop = barbershopRepository.save(BarbershopMapper.toModel(user, request));
+        BarbershopModel barbershop = barbershopRepository.save(BarbershopMapper.toBarbershopModel(user, request));
 
-        return BarbershopMapper.toResponse(barbershop);
+        return BarbershopMapper.toCreateBarbershopResponse(barbershop);
     }
 }

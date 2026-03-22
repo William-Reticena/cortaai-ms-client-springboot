@@ -2,6 +2,7 @@ package br.com.cortaai.client.controllers;
 
 import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
 import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
+import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
 import br.com.cortaai.client.facades.BarbershopFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class BarbershopController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CreateBarbershopResponse>> listBarbershops() {
+    public ResponseEntity<List<ListBarbershopResponse>> listBarbershops() {
         return ResponseEntity.status(HttpStatus.OK).body(barbershopFacade.listBarbershops());
     }
 
