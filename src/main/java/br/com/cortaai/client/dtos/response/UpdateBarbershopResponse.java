@@ -5,11 +5,12 @@ import lombok.Builder;
 import java.time.LocalTime;
 
 @Builder
-public record CreateBarbershopResponse(
+public record UpdateBarbershopResponse(
         String nmBarbershop,
         String dsAddress,
         String dsPhone,
-        LocalTime hrOpens,
-        LocalTime hrCloses
+        LocalTime hrOpensAt,
+        LocalTime hrClosesAt,
+        Boolean inOpen
 ) {
 }

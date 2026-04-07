@@ -1,12 +1,13 @@
 package br.com.cortaai.client.mappers;
 
 import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
+import br.com.cortaai.client.dtos.request.UpdateBarbershopRequest;
 import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
 import br.com.cortaai.client.dtos.response.GetBarbershopDetailsResponse;
 import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
+import br.com.cortaai.client.dtos.response.UpdateBarbershopResponse;
 import br.com.cortaai.client.dtos.shared.EmployeeWithSpecialties;
 import br.com.cortaai.client.models.BarbershopModel;
-import br.com.cortaai.client.models.EmployeeModel;
 import br.com.cortaai.client.models.ServiceModel;
 import br.com.cortaai.client.models.UserModel;
 
@@ -20,12 +21,57 @@ public class BarbershopMapper {
         return BarbershopModel.builder()
                 .owner(user)
                 .nmBarbershop(request.nmBarbershop())
+                .dsAddress(request.dsAddress())
+                .dsPhone(request.dsPhone())
+                .hrOpens(request.hrOpensAt())
+                .hrCloses(request.hrClosesAt())
+                .inOpen(Boolean.FALSE)
                 .build();
     }
+
+    public static BarbershopModel toUpdatedBarbershopModel(BarbershopModel barbershop, UpdateBarbershopRequest request) {
+        barbershop.setNmBarbershop(request.nmBarbershop());
+        barbershop.setDsAddress(request.dsAddress());
+        barbershop.setDsPhone(request.dsPhone());
+        barbershop.setHrOpens(request.hrOpensAt());
+        barbershop.setHrCloses(request.hrClosesAt());
+        barbershop.setInOpen(request.inOpen());
+
+        return barbershop;
+    }
+
+//    public static BarbershopModel toUpdatedBarbershopModel(UserModel user, CreateBarbershopRequest request) {
+//        return BarbershopModel.builder()
+//                .owner(user)
+//                .nmBarbershop(request.nmBarbershop())
+//                .dsAddress(request.dsAddress())
+//                .dsPhone(request.dsPhone())
+//                .hrOpensAt(request.hrOpensAt())
+//                .hrClosesAt(request.hrClosesAt())
+//                .inOpen(Boolean.FALSE)
+//                .build();
+//    }
 
     public static CreateBarbershopResponse toCreateBarbershopResponse(BarbershopModel model) {
         return CreateBarbershopResponse.builder()
                 .nmBarbershop(model.getNmBarbershop())
+                .dsAddress(model.getDsAddress())
+                .dsPhone(model.getDsPhone())
+                .hrOpens(model.getHrOpens())
+                .hrCloses(model.getHrCloses())
+                .build();
+    }
+
+    public static UpdateBarbershopResponse toUpdateBarbershopResponse(BarbershopModel model) {
+        Boolean inOperating = isOperatingSchedule(model.getInOpen(), model.getHrOpens(), model.getHrCloses());
+
+        return UpdateBarbershopResponse.builder()
+                .nmBarbershop(model.getNmBarbershop())
+                .dsAddress(model.getDsAddress())
+                .dsPhone(model.getDsPhone())
+                .hrOpensAt(model.getHrOpens())
+                .hrClosesAt(model.getHrCloses())
+                .inOpen(inOperating)
                 .build();
     }
 
@@ -43,13 +89,16 @@ public class BarbershopMapper {
     }
 
     public static GetBarbershopDetailsResponse toGetBarbershopDetailsResponse(BarbershopModel model, List<ServiceModel> offerServices, List<EmployeeWithSpecialties> employeeSpecialties) {
+        Boolean inOperating = isOperatingSchedule(model.getInOpen(), model.getHrOpens(), model.getHrCloses());
+
         return GetBarbershopDetailsResponse.builder()
                 .barbershopDetails(GetBarbershopDetailsResponse.BarbershopDetails.builder()
                         .nmBarbershop(model.getNmBarbershop())
-                        .dsAddress("Not Implemented")
-                        .dsPhone("44999999999")
-                        .inOpen(Boolean.TRUE)
-                        .hrClosesAt(LocalTime.now().plusMinutes(30))
+                        .dsAddress(model.getDsAddress())
+                        .dsPhone(model.getDsPhone())
+                        .inOpen(inOperating)
+                        .hrClosesAt(model.getHrCloses())
+                        .hrOpensAt(model.getHrOpens())
                         .dtNextAvailableSchedule(LocalDateTime.now())
                         .build())
                 .offerServices(offerServices.stream()
@@ -63,5 +112,10 @@ public class BarbershopMapper {
                         .toList())
                 .barbers(employeeSpecialties)
                 .build();
+    }
+
+    private static Boolean isOperatingSchedule(Boolean inOpen, LocalTime hrOpens, LocalTime hrCloses) {
+        LocalTime now = LocalTime.now();
+        return inOpen ? hrOpens.isBefore(now) && hrCloses.isAfter(now) : Boolean.FALSE;
     }
 }

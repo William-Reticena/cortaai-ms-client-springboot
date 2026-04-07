@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +28,21 @@ public class BarbershopModel {
 
     @Column(name = "nm_barbershop", length = 100)
     private String nmBarbershop;
+
+    @Column(name = "ds_address", length = 255)
+    private String dsAddress;
+
+    @Column(name = "ds_phone", length = 20)
+    private String dsPhone;
+
+    @Column(name = "hr_closes")
+    private LocalTime hrCloses;
+
+    @Column(name = "hr_opens")
+    private LocalTime hrOpens;
+
+    @Column(name = "in_open")
+    private Boolean inOpen;
 
     @Column(name = "dt_created")
     private LocalDateTime dtCreated;

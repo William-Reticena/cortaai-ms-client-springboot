@@ -22,6 +22,7 @@ public record GetBarbershopDetailsResponse(
             String dsPhone,
             Boolean inOpen,
             LocalTime hrClosesAt,
+            LocalTime hrOpensAt,
             LocalDateTime dtNextAvailableSchedule
     ) {}
 

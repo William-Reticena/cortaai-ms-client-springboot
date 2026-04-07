@@ -1,6 +1,7 @@
 package br.com.cortaai.client.services;
 
 import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
+import br.com.cortaai.client.dtos.request.UpdateBarbershopRequest;
 import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
 import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
 import br.com.cortaai.client.exceptions.DomainException;
@@ -48,9 +49,23 @@ public class BarbershopService {
         return BarbershopMapper.toCreateBarbershopResponse(barbershop);
     }
 
-    public CreateBarbershopResponse createBarbershop(UserModel user, CreateBarbershopRequest request) {
-        BarbershopModel barbershop = barbershopRepository.save(BarbershopMapper.toBarbershopModel(user, request));
+    public BarbershopModel createBarbershop(UserModel user, CreateBarbershopRequest request) {
+        BarbershopModel barbershopAlreadyExists = barbershopRepository.findByOwnerId(user.getId()).orElse(null);
 
-        return BarbershopMapper.toCreateBarbershopResponse(barbershop);
+        if (barbershopAlreadyExists != null) {
+            throw new DomainException(
+                    "Barbearia já cadastrada para este usuário",
+                    "Barbershop already exists for user id: " + user.getId(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
+        return barbershopRepository.save(BarbershopMapper.toBarbershopModel(user, request));
+    }
+
+    public BarbershopModel updateBarbershop(UserModel user, UpdateBarbershopRequest request) {
+        BarbershopModel barbershop = getBarbershopByOwnerId(user.getId());
+
+        return barbershopRepository.save(BarbershopMapper.toUpdatedBarbershopModel(barbershop, request));
     }
 }

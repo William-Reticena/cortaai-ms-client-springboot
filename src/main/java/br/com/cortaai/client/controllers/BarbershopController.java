@@ -1,9 +1,11 @@
 package br.com.cortaai.client.controllers;
 
 import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
+import br.com.cortaai.client.dtos.request.UpdateBarbershopRequest;
 import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
 import br.com.cortaai.client.dtos.response.GetBarbershopDetailsResponse;
 import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
+import br.com.cortaai.client.dtos.response.UpdateBarbershopResponse;
 import br.com.cortaai.client.facades.BarbershopFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,14 @@ public class BarbershopController {
             @RequestBody @Valid CreateBarbershopRequest request
     ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(barbershopFacade.createBarbershop(token, request));
+    }
+
+    @PutMapping
+    public ResponseEntity<UpdateBarbershopResponse> updateBarbershop(
+            @RequestHeader("Authorization") String token,
+            @RequestBody @Valid UpdateBarbershopRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(barbershopFacade.updateBarbershop(token, request));
     }
 
     @GetMapping

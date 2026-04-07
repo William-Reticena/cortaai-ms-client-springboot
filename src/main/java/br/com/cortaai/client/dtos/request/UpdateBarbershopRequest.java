@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalTime;
 
 @OpenBeforeClose
-public record CreateBarbershopRequest(
+public record UpdateBarbershopRequest(
 
         @NotBlank(message = "nmBarbershop is required")
         @Size(min = 3, max = 50, message = "nmBarbershop must be between 3 and 50 characters")
@@ -28,6 +28,9 @@ public record CreateBarbershopRequest(
         LocalTime hrOpensAt,
 
         @NotNull(message = "hrClosesAt is required")
-        LocalTime hrClosesAt
+        LocalTime hrClosesAt,
+
+        @NotNull(message = "inOpen is required")
+        Boolean inOpen
 ) implements HasOpenCloseTime {
 }

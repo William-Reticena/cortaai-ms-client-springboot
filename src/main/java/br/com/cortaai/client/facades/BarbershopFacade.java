@@ -1,9 +1,11 @@
 package br.com.cortaai.client.facades;
 
 import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
+import br.com.cortaai.client.dtos.request.UpdateBarbershopRequest;
 import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
 import br.com.cortaai.client.dtos.response.GetBarbershopDetailsResponse;
 import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
+import br.com.cortaai.client.dtos.response.UpdateBarbershopResponse;
 import br.com.cortaai.client.dtos.shared.EmployeeWithSpecialties;
 import br.com.cortaai.client.mappers.BarbershopMapper;
 import br.com.cortaai.client.models.BarbershopModel;
@@ -32,7 +34,13 @@ public class BarbershopFacade {
     public CreateBarbershopResponse createBarbershop(String token, CreateBarbershopRequest request) {
         UserModel user = userService.getOwner(Long.valueOf(token));
 
-        return barbershopService.createBarbershop(user, request);
+        return BarbershopMapper.toCreateBarbershopResponse(barbershopService.createBarbershop(user, request));
+    }
+
+    public UpdateBarbershopResponse updateBarbershop(String token, UpdateBarbershopRequest request) {
+        UserModel user = userService.getOwner(Long.valueOf(token));
+
+        return BarbershopMapper.toUpdateBarbershopResponse(barbershopService.updateBarbershop(user, request));
     }
 
     public List<ListBarbershopResponse> listBarbershops() {
