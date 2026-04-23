@@ -1,6 +1,7 @@
 package br.com.cortaai.client.exceptions;
 
 import br.com.cortaai.client.configs.AppLogger;
+import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -41,6 +42,20 @@ public class GlobalExceptionHandler {
         response.put("info", HttpStatus.BAD_REQUEST.getReasonPhrase());
 
         return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<?> handleFeignException(FeignException ex) {
+        log.error("External service call failed - Status: {}, Message: {}, Response: {}", 
+                ex.status(), ex.getMessage(), ex.contentUTF8(), ex);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.put("info", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        response.put("message", "Erro interno");
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 
     @ExceptionHandler(Exception.class)
