@@ -1,8 +1,10 @@
 package br.com.cortaai.client.services;
 
+import br.com.cortaai.client.dtos.feign.response.AuthFeignResponse;
 import br.com.cortaai.client.dtos.request.AuthRequest;
 import br.com.cortaai.client.dtos.request.RefreshTokenRequest;
-import br.com.cortaai.client.dtos.feign.response.AuthFeignResponse;
+import br.com.cortaai.client.dtos.request.ValidateTokenRequest;
+import br.com.cortaai.client.dtos.feign.response.ValidateFeignResponse;
 import br.com.cortaai.client.feign.AuthServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,5 +22,10 @@ public class AuthService {
     public AuthFeignResponse refreshToken(String refreshToken) {
         RefreshTokenRequest request = new RefreshTokenRequest(refreshToken);
         return authServiceClient.refresh(request);
+    }
+
+    public ValidateFeignResponse validateToken(String dsToken) {
+        ValidateTokenRequest request = new ValidateTokenRequest(dsToken);
+        return authServiceClient.validateToken(request);
     }
 }
