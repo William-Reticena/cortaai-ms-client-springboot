@@ -21,7 +21,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     private static final String[] PUBLIC_PATHS = {
         "/api/v1/auth/login",
-        "/api/v1/auth/refresh-token"
+        "/api/v1/auth/refresh-token",
+        "/api/v1/users"
     };
 
     @Override

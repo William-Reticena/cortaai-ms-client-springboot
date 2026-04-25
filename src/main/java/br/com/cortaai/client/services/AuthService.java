@@ -1,9 +1,11 @@
 package br.com.cortaai.client.services;
 
+import br.com.cortaai.client.dtos.feign.request.RegisterFeignRequest;
 import br.com.cortaai.client.dtos.feign.response.AuthFeignResponse;
+import br.com.cortaai.client.dtos.feign.response.RegisterFeignResponse;
 import br.com.cortaai.client.dtos.request.AuthRequest;
 import br.com.cortaai.client.dtos.request.RefreshTokenRequest;
-import br.com.cortaai.client.dtos.request.ValidateTokenRequest;
+import br.com.cortaai.client.dtos.feign.request.ValidateTokenRequest;
 import br.com.cortaai.client.dtos.feign.response.ValidateFeignResponse;
 import br.com.cortaai.client.feign.AuthServiceClient;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,10 @@ public class AuthService {
 
     private final AuthServiceClient authServiceClient;
 
+    public RegisterFeignResponse register(RegisterFeignRequest request) {
+        return authServiceClient.register(request);
+    }
+
     public AuthFeignResponse authenticate(AuthRequest request) {
         return authServiceClient.login(request);
     }
@@ -25,7 +31,6 @@ public class AuthService {
     }
 
     public ValidateFeignResponse validateToken(String dsToken) {
-        ValidateTokenRequest request = new ValidateTokenRequest(dsToken);
-        return authServiceClient.validateToken(request);
+        return authServiceClient.validateToken(new ValidateTokenRequest(dsToken));
     }
 }

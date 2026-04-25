@@ -1,9 +1,11 @@
 package br.com.cortaai.client.feign;
 
+import br.com.cortaai.client.dtos.feign.request.RegisterFeignRequest;
 import br.com.cortaai.client.dtos.feign.response.AuthFeignResponse;
+import br.com.cortaai.client.dtos.feign.response.RegisterFeignResponse;
 import br.com.cortaai.client.dtos.request.AuthRequest;
 import br.com.cortaai.client.dtos.request.RefreshTokenRequest;
-import br.com.cortaai.client.dtos.request.ValidateTokenRequest;
+import br.com.cortaai.client.dtos.feign.request.ValidateTokenRequest;
 import br.com.cortaai.client.dtos.feign.response.ValidateFeignResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
     configuration = br.com.cortaai.client.configs.FeignLoggerConfig.class
 )
 public interface AuthServiceClient {
+
+    @PostMapping("/auth/register")
+    RegisterFeignResponse register(@RequestBody RegisterFeignRequest request);
 
     @PostMapping("/auth/login")
     AuthFeignResponse login(@RequestBody AuthRequest request);

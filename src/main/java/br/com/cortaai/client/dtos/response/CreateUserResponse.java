@@ -5,6 +5,7 @@ import lombok.Builder;
 @Builder
 public record CreateUserResponse (
         String nmUser,
-        String dsPhone
+        String dsPhone,
+        String dsEmail
 ) {
 }

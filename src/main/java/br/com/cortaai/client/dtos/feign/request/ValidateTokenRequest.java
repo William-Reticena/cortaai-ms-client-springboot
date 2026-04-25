@@ -1,4 +1,4 @@
-package br.com.cortaai.client.dtos.request;
+package br.com.cortaai.client.dtos.feign.request;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,8 +1,6 @@
 package br.com.cortaai.client.services;
 
 import br.com.cortaai.client.dtos.request.CreateBarberRequest;
-import br.com.cortaai.client.dtos.request.CreateUserRequest;
-import br.com.cortaai.client.dtos.response.CreateUserResponse;
 import br.com.cortaai.client.enums.UserRoleEnum;
 import br.com.cortaai.client.exceptions.DomainException;
 import br.com.cortaai.client.mappers.UserMapper;
@@ -12,24 +10,35 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
 
-    public CreateUserResponse createUser(CreateUserRequest request) {
-        if (userRepository.existsByDsPhone(request.dsPhone())) {
+    public UserModel createUser(UserModel user) {
+        List<UserModel> conflicts = userRepository.findByDsPhoneOrDsEmail(user.getDsPhone(), user.getDsEmail());
+
+        if (!conflicts.isEmpty()) {
+            UserModel conflict = conflicts.getFirst();
+            if (conflict.getDsPhone().equals(user.getDsPhone())) {
+                throw new DomainException(
+                        "Telefone já cadastrado",
+                        "User with phone number " + user.getDsPhone() + " already exists",
+                        HttpStatus.BAD_REQUEST
+                );
+            }
+
             throw new DomainException(
-                    "Telefone já cadastrado",
-                    "User with phone number " + request.dsPhone() + " already exists",
+                    "E-mail indisponível",
+                    "User with email " + user.getDsEmail() + " already exists",
                     HttpStatus.BAD_REQUEST
             );
         }
 
-        UserModel model = userRepository.save(UserMapper.toModel(request));
-
-        return UserMapper.toResponse(model);
+        return userRepository.save(user);
     }
 
     public UserModel getUserById(Long id) {
@@ -56,6 +65,6 @@ public class UserService {
     }
 
     public UserModel createUserBarber(CreateBarberRequest request) {
-        return userRepository.save(UserMapper.toModel(request));
+        return userRepository.save(UserMapper.toUserModel(request));
     }
 }

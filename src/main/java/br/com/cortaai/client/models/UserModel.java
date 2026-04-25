@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 public class UserModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -27,6 +26,9 @@ public class UserModel {
 
     @Column(name = "ds_phone", length = 20)
     private String dsPhone;
+
+    @Column(name = "ds_email", length = 100)
+    private String dsEmail;
 
     @Column(name = "ds_password", nullable = false)
     private String dsPassword;
