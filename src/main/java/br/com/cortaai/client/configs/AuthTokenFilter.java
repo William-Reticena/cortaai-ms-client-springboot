@@ -1,5 +1,6 @@
 package br.com.cortaai.client.configs;
 
+import br.com.cortaai.client.dtos.feign.response.ValidateFeignResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -69,9 +70,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 return;
             }
 
-            log.info("Validating token: " + token.substring(0, Math.min(20, token.length())) + "...");
-            Boolean isTokenValid = authFacade.validateToken(token);
-            log.info("Token validation result (inValid/IsValid): " + isTokenValid);
+            ValidateFeignResponse feignResponse = authFacade.validateToken(token);
+            Boolean isTokenValid = feignResponse.inValid();
 
             if (isTokenValid == null) {
                 log.error("Token validation returned null response");
@@ -89,7 +89,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 return;
             }
 
-            log.debug("Token validated successfully");
+            request.setAttribute("user", feignResponse.user());
         } catch (Exception ex) {
             log.error("Error validating token: " + ex.getMessage(), ex);
             response.setStatus(HttpStatus.UNAUTHORIZED.value());

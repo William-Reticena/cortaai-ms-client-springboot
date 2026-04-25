@@ -7,6 +7,7 @@ import br.com.cortaai.client.dtos.response.GetBarbershopDetailsResponse;
 import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
 import br.com.cortaai.client.dtos.response.UpdateBarbershopResponse;
 import br.com.cortaai.client.dtos.shared.EmployeeWithSpecialties;
+import br.com.cortaai.client.dtos.shared.UserDto;
 import br.com.cortaai.client.mappers.BarbershopMapper;
 import br.com.cortaai.client.models.BarbershopModel;
 import br.com.cortaai.client.models.EmployeeModel;
@@ -30,14 +31,14 @@ public class BarbershopFacade {
     private final OfferService offerService;
     private final UserService userService;
 
-    public CreateBarbershopResponse createBarbershop(String token, CreateBarbershopRequest request) {
-        UserModel user = userService.getOwner(Long.valueOf(token));
+    public CreateBarbershopResponse createBarbershop(UserDto userAuthenticated, CreateBarbershopRequest request) {
+        UserModel user = userService.getOwner(userAuthenticated.id());
 
         return BarbershopMapper.toCreateBarbershopResponse(barbershopService.createBarbershop(user, request));
     }
 
-    public UpdateBarbershopResponse updateBarbershop(String token, UpdateBarbershopRequest request) {
-        UserModel user = userService.getOwner(Long.valueOf(token));
+    public UpdateBarbershopResponse updateBarbershop(UserDto userAuthenticated, UpdateBarbershopRequest request) {
+        UserModel user = userService.getOwner(userAuthenticated.id());
 
         return BarbershopMapper.toUpdateBarbershopResponse(barbershopService.updateBarbershop(user, request));
     }

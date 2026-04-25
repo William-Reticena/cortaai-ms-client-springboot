@@ -1,11 +1,13 @@
 package br.com.cortaai.client.controllers;
 
+import br.com.cortaai.client.validators.annotations.AuthenticatedUser;
 import br.com.cortaai.client.dtos.request.CreateBarbershopRequest;
 import br.com.cortaai.client.dtos.request.UpdateBarbershopRequest;
 import br.com.cortaai.client.dtos.response.CreateBarbershopResponse;
 import br.com.cortaai.client.dtos.response.GetBarbershopDetailsResponse;
 import br.com.cortaai.client.dtos.response.ListBarbershopResponse;
 import br.com.cortaai.client.dtos.response.UpdateBarbershopResponse;
+import br.com.cortaai.client.dtos.shared.UserDto;
 import br.com.cortaai.client.facades.BarbershopFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,18 +26,18 @@ public class BarbershopController {
 
     @PostMapping
     public ResponseEntity<CreateBarbershopResponse> createBarbershop(
-            @RequestHeader("Authorization") String token,
+            @AuthenticatedUser UserDto userAuthenticated,
             @RequestBody @Valid CreateBarbershopRequest request
     ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(barbershopFacade.createBarbershop(token, request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(barbershopFacade.createBarbershop(userAuthenticated, request));
     }
 
     @PutMapping
     public ResponseEntity<UpdateBarbershopResponse> updateBarbershop(
-            @RequestHeader("Authorization") String token,
+            @AuthenticatedUser UserDto userAuthenticated,
             @RequestBody @Valid UpdateBarbershopRequest request
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(barbershopFacade.updateBarbershop(token, request));
+        return ResponseEntity.status(HttpStatus.OK).body(barbershopFacade.updateBarbershop(userAuthenticated, request));
     }
 
     @GetMapping
