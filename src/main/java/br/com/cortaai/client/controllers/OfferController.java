@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("offers")
+@RequestMapping("/v1/offers")
 @RequiredArgsConstructor
 public class OfferController {
 
