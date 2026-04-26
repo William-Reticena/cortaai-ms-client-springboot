@@ -4,6 +4,7 @@ import br.com.cortaai.client.dtos.request.AuthRequest;
 import br.com.cortaai.client.dtos.request.RefreshTokenRequest;
 import br.com.cortaai.client.dtos.response.AuthResponse;
 import br.com.cortaai.client.facades.AuthFacade;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class AuthController {
     private final AuthFacade authFacade;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody @Valid AuthRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(authFacade.login(request));
     }
 
