@@ -2,6 +2,7 @@ package br.com.cortaai.client.controllers;
 
 import br.com.cortaai.client.dtos.request.CreateUserRequest;
 import br.com.cortaai.client.dtos.response.CreateUserResponse;
+import br.com.cortaai.client.dtos.response.MeResponse;
 import br.com.cortaai.client.dtos.shared.UserDto;
 import br.com.cortaai.client.facades.UserFacade;
 import br.com.cortaai.client.validators.annotations.AuthenticatedUser;
@@ -26,10 +27,9 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<CreateUserResponse> getCurrentUser(
+    public ResponseEntity<MeResponse> getCurrentUser(
             @AuthenticatedUser UserDto userAuthenticated
     ) {
         return ResponseEntity.ok(userFacade.getCurrentUser(userAuthenticated));
     }
-
 }

@@ -3,6 +3,7 @@ package br.com.cortaai.client.facades;
 import br.com.cortaai.client.dtos.feign.response.RegisterFeignResponse;
 import br.com.cortaai.client.dtos.request.CreateUserRequest;
 import br.com.cortaai.client.dtos.response.CreateUserResponse;
+import br.com.cortaai.client.dtos.response.MeResponse;
 import br.com.cortaai.client.dtos.shared.UserDto;
 import br.com.cortaai.client.mappers.AuthFeignMapper;
 import br.com.cortaai.client.mappers.UserMapper;
@@ -24,7 +25,7 @@ public class UserFacade {
         return UserMapper.toCreateUserResponse(userService.createUser(UserMapper.toUserModel(request, feignResponse)));
     }
 
-    public CreateUserResponse getCurrentUser(UserDto userAuthenticated) {
-        return UserMapper.toCreateUserResponse(userService.getUserById(userAuthenticated.id()));
+    public MeResponse getCurrentUser(UserDto userAuthenticated) {
+        return UserMapper.toMeResponse(userService.getUserById(userAuthenticated.id()));
     }
 }
