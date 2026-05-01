@@ -100,7 +100,7 @@ public class LoggingFilter implements Filter {
     }
 
     private String getBody(byte[] content) {
-        if (content.length == 0) return "";
+        if (content == null || content.length == 0) return "";
 
         String body = new String(content, StandardCharsets.UTF_8);
 
