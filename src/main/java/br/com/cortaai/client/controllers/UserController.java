@@ -2,7 +2,9 @@ package br.com.cortaai.client.controllers;
 
 import br.com.cortaai.client.dtos.request.CreateUserRequest;
 import br.com.cortaai.client.dtos.response.CreateUserResponse;
+import br.com.cortaai.client.dtos.shared.UserDto;
 import br.com.cortaai.client.facades.UserFacade;
+import br.com.cortaai.client.validators.annotations.AuthenticatedUser;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,4 +24,12 @@ public class UserController {
     ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userFacade.createUser(request));
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<CreateUserResponse> getCurrentUser(
+            @AuthenticatedUser UserDto userAuthenticated
+    ) {
+        return ResponseEntity.ok(userFacade.getCurrentUser(userAuthenticated));
+    }
+
 }

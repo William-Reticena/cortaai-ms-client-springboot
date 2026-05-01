@@ -28,6 +28,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            return true;
+        }
+        
         String requestPath = request.getRequestURI();
         for (String path : PUBLIC_PATHS) {
             if (requestPath.equals(path)) {
