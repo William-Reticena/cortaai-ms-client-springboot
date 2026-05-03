@@ -7,6 +7,7 @@ public record MeResponse(
         String nmUser,
         String dsPhone,
         String dsEmail,
-        Integer tpRole
+        Integer tpRole,
+        Long idBarbershop
 ) {
 }

@@ -39,6 +39,10 @@ public class BarbershopService {
                 ));
     }
 
+    public BarbershopModel getBarbershopByOwnerIdOrNull(Long id) {
+        return barbershopRepository.findByOwnerId(id).orElse(null);
+    }
+
     public List<BarbershopModel> listBarbershops() {
         return barbershopRepository.findAll();
     }

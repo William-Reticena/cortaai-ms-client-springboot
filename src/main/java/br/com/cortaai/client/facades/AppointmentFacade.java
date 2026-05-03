@@ -2,6 +2,7 @@ package br.com.cortaai.client.facades;
 
 import br.com.cortaai.client.dtos.request.CreateAppointmentRequest;
 import br.com.cortaai.client.dtos.response.CreateAppointmentResponse;
+import br.com.cortaai.client.dtos.shared.UserDto;
 import br.com.cortaai.client.mappers.AppointmentMapper;
 import br.com.cortaai.client.models.AppointmentModel;
 import br.com.cortaai.client.models.EmployeeModel;
@@ -20,11 +21,11 @@ public class AppointmentFacade {
     private final OfferService offerService;
     private final UserService userService;
 
-    public CreateAppointmentResponse createAppointment(String token, CreateAppointmentRequest request) {
+    public CreateAppointmentResponse createAppointment(UserDto userAuthenticated, CreateAppointmentRequest request) {
         ServiceModel service = offerService.getOfferServiceById(request.idService());
         appointmentService.verifyIfScheduleAvailable(request.idBarber(), request.dtAppointment(), service.getNrDurationMinutes());
 
-        UserModel client = userService.getUserById(Long.valueOf(token));
+        UserModel client = userService.getUserById(userAuthenticated.id());
         EmployeeModel employee = employeeService.getEmployeeById(request.idBarber());
         AppointmentModel appointment = appointmentService.createAppointment(AppointmentMapper.toAppointmentModel(client, employee, service, request));
         appointmentService.attachToService(AppointmentMapper.toAppointmentServiceModel(appointment, service));

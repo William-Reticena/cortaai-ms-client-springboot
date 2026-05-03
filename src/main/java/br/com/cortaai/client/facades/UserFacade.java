@@ -7,7 +7,10 @@ import br.com.cortaai.client.dtos.response.MeResponse;
 import br.com.cortaai.client.dtos.shared.UserDto;
 import br.com.cortaai.client.mappers.AuthFeignMapper;
 import br.com.cortaai.client.mappers.UserMapper;
+import br.com.cortaai.client.models.BarbershopModel;
+import br.com.cortaai.client.models.UserModel;
 import br.com.cortaai.client.services.AuthService;
+import br.com.cortaai.client.services.BarbershopService;
 import br.com.cortaai.client.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Component;
 public class UserFacade {
 
     private final AuthService authService;
+    private final BarbershopService barbershopService;
     private final UserService userService;
 
     public CreateUserResponse createUser(CreateUserRequest request) {
@@ -26,6 +30,9 @@ public class UserFacade {
     }
 
     public MeResponse getCurrentUser(UserDto userAuthenticated) {
-        return UserMapper.toMeResponse(userService.getUserById(userAuthenticated.id()));
+        UserModel userModel = userService.getUserById(userAuthenticated.id());
+        BarbershopModel barbershopModel = barbershopService.getBarbershopByOwnerIdOrNull(userModel.getId());
+
+        return UserMapper.toMeResponse(userModel, barbershopModel);
     }
 }
